@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const TaskListItem = ({ id, task, isCompleted = false }) => {
+const TaskListItem = ({ id, task, isCompleted }) => {
   const [completed, setCompleted] = React.useState(isCompleted);
   useEffect(() => {
     setCompleted(isCompleted);
