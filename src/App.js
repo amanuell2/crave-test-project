@@ -1,8 +1,13 @@
 import "./App.css";
+import { TaskListContainer } from "./Components";
 
 function App() {
   return (
-    <h1 className="text-3xl text-red-600 font-bold underline">Hello world!</h1>
+    <div className="App min-h-screen flex items-center justify-center space-x-5 bg-white">
+      <main className="App-main">
+        <TaskListContainer />
+      </main>
+    </div>
   );
 }
 
