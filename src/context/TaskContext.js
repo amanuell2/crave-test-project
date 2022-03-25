@@ -25,7 +25,7 @@ const initialState = [
       },
       {
         id: idGenerator(),
-        task: "BUy domains",
+        task: "Buy domains",
         isCompleted: true,
       },
     ],

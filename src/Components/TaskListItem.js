@@ -10,15 +10,15 @@ const TaskListItem = ({ id, task, isCompleted }) => {
     setCompleted(e.target.checked);
   };
   return (
-    <div className="flex justify-start items-center">
+    <div className="flex justify-start items-center my-1">
       <input
         id={id + Math.random}
-        className="w-4 h-4 "
+        className="w-4 h-4 accent-blue-800"
         type="checkbox"
         checked={completed}
         onChange={handleClick}
       />
-      <span className="text-sm font-medium flex-1 mx-2">{task}</span>
+      <span className="text-sm flex-1 mx-2">{task}</span>
     </div>
   );
 };
