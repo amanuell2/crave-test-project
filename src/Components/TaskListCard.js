@@ -4,7 +4,7 @@ import TaskListItem from "./TaskListItem";
 
 const TaskListCard = ({ id, title, isLocked, subTask }) => {
   return (
-    <div className="w-72 bg-white rounded-sm px-1">
+    <div className="w-64 bg-white rounded-sm px-1">
       <div className="flex justify-between items-center">
         <span className="bg-black rounded-full w-6 h-6 text-white text-center">
           1
