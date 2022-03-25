@@ -15,7 +15,7 @@ const initialState = [
       },
       {
         id: idGenerator(),
-        task: "Set mission and Vision",
+        task: "Set mission & Vision",
         isCompleted: true,
       },
       {
