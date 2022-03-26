@@ -83,7 +83,6 @@ const TaskContextProvider = (props) => {
   };
 
   const toggleTask = (id, isLocked) => {
-    console.log(isLocked);
     setTasks(
       tasks.map((task) => {
         if (task.id === id) {
