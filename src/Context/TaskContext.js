@@ -93,6 +93,7 @@ const TaskContextProvider = (props) => {
   };
 
   const addSubTask = (id, subTask) => {
+    const nextTask = getNextTask(id);
     setTasks(
       tasks.map((task) => {
         if (task.id === id) {
@@ -102,9 +103,11 @@ const TaskContextProvider = (props) => {
       })
     );
     shouldUnlockTask(id);
+    shouldUnlockTask(nextTask.id);
   };
 
   const toggleSubTask = async (id, subTaskId) => {
+    const nextTask = getNextTask(id);
     await setTasks(
       tasks.map((task) => {
         if (task.id === id) {
@@ -121,10 +124,17 @@ const TaskContextProvider = (props) => {
     );
 
     shouldUnlockTask(id);
+    shouldUnlockTask(nextTask.id);
   };
 
   const findById = (id) => {
     return tasks.find((task) => task.id === id);
+  };
+
+  const getNextTask = (id) => {
+    const task = findById(id);
+    const index = tasks.indexOf(task);
+    return tasks[index + 1];
   };
 
   const shouldUnlockTask = async (id) => {
