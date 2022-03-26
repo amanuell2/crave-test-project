@@ -1,6 +1,5 @@
 import React, { createContext } from "react";
-
-const idGenerator = () => Math.random().toString(36).substr(2, 9);
+import { idGenerator } from "../Helper/helper";
 
 const initialState = [
   {

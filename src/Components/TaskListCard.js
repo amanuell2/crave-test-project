@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { IoIosAdd, IoIosCheckmark, IoIosPulse } from "react-icons/io";
-import { TaskContext } from "../context/TaskContext";
+import { TaskContext } from "../Context/TaskContext";
+import { idGenerator } from "../Helper/helper";
 import AddNewTask from "./AddNewTask";
 import TaskListItem from "./TaskListItem";
 
 const TaskListCard = ({ index, id, title, isLocked, subTask }) => {
   const taskContext = useContext(TaskContext);
-  const { toggleSubTask } = taskContext;
+  const { toggleSubTask, addSubTask } = taskContext;
 
   return (
     <div className="w-64 bg-white rounded-sm px-1 my-2">
@@ -27,7 +28,15 @@ const TaskListCard = ({ index, id, title, isLocked, subTask }) => {
           {...{ ...task, ...{ parentId: id }, ...{ toggleSubTask } }}
         />
       ))}
-      <AddNewTask />
+      <AddNewTask
+        onAddNewTaskClick={(task) =>
+          addSubTask(id, {
+            id: idGenerator(),
+            task,
+            isCompleted: false,
+          })
+        }
+      />
     </div>
   );
 };
