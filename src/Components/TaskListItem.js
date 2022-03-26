@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const TaskListItem = ({ id, task, isCompleted }) => {
+const TaskListItem = ({ parentId, toggleSubTask, id, task, isCompleted }) => {
   const [completed, setCompleted] = React.useState(isCompleted);
   useEffect(() => {
     setCompleted(isCompleted);
@@ -8,6 +8,7 @@ const TaskListItem = ({ id, task, isCompleted }) => {
 
   const handleClick = (e) => {
     setCompleted(e.target.checked);
+    toggleSubTask(parentId, id);
   };
   return (
     <div className="flex justify-start items-center my-1">

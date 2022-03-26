@@ -6,7 +6,7 @@ const initialState = [
   {
     id: idGenerator(),
     title: "Foundation",
-    isLocked: true,
+    isLocked: false,
     subTask: [
       {
         id: idGenerator(),
@@ -33,7 +33,7 @@ const initialState = [
   {
     id: idGenerator(),
     title: "Discovery",
-    isLocked: false,
+    isLocked: true,
     subTask: [
       {
         id: idGenerator(),
@@ -50,7 +50,7 @@ const initialState = [
   {
     id: idGenerator(),
     title: "Delivery",
-    isLocked: false,
+    isLocked: true,
     subTask: [
       {
         id: idGenerator(),
@@ -82,11 +82,12 @@ const TaskContextProvider = (props) => {
     setTasks([...tasks, task]);
   };
 
-  const toggleTask = (id) => {
+  const toggleTask = (id, isLocked) => {
+    console.log(isLocked);
     setTasks(
       tasks.map((task) => {
         if (task.id === id) {
-          task.isLocked = !task.isLocked;
+          task.isLocked = isLocked;
         }
         return task;
       })
@@ -104,8 +105,8 @@ const TaskContextProvider = (props) => {
     );
   };
 
-  const toggleSubTask = (id, subTaskId) => {
-    setTasks(
+  const toggleSubTask = async (id, subTaskId) => {
+    await setTasks(
       tasks.map((task) => {
         if (task.id === id) {
           task.subTask = task.subTask.map((subTask) => {
@@ -114,14 +115,36 @@ const TaskContextProvider = (props) => {
             }
             return subTask;
           });
+          if (!task.subTask.isCompleted) toggleTask(id, true);
         }
         return task;
       })
     );
+
+    shouldLockOrUnlockTask(id);
   };
 
   const findById = (id) => {
     return tasks.find((task) => task.id === id);
+  };
+
+  const shouldLockOrUnlockTask = async (id) => {
+    let task = await findById(id);
+    let canUnlockTaskNextTask = await isAllSubTaskAreCompleted(task.subTask);
+    if (canUnlockTaskNextTask) {
+      return toggleTask(id, false);
+    }
+  };
+
+  const isAllSubTaskAreCompleted = (subTask) => {
+    let isCompleted = true;
+    if (!subTask.length > 0) return false;
+    subTask.forEach((task) => {
+      if (!task.isCompleted) {
+        isCompleted = false;
+      }
+    });
+    return isCompleted;
   };
 
   return (
