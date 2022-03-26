@@ -120,14 +120,14 @@ const TaskContextProvider = (props) => {
       })
     );
 
-    shouldLockOrUnlockTask(id);
+    shouldUnlockTask(id);
   };
 
   const findById = (id) => {
     return tasks.find((task) => task.id === id);
   };
 
-  const shouldLockOrUnlockTask = async (id) => {
+  const shouldUnlockTask = async (id) => {
     let task = await findById(id);
     let canUnlockTaskNextTask = await isAllSubTaskAreCompleted(task.subTask);
     if (canUnlockTaskNextTask && isPreviousTaskCompleted(task)) {
@@ -145,11 +145,13 @@ const TaskContextProvider = (props) => {
     });
     return isCompleted;
   };
+
   const isPreviousTaskCompleted = (task) => {
     let index = tasks.indexOf(task);
     let perviousTask = tasks[index - 1];
     if (perviousTask) return !perviousTask.isLocked;
   };
+
   return (
     <TaskContext.Provider
       value={{
