@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { IoIosAdd, IoIosCheckmark, IoIosPulse } from "react-icons/io";
+import { IoIosCheckmark } from "react-icons/io";
 import { TaskContext } from "../Context/TaskContext";
 import { idGenerator } from "../Helper/helper";
 import AddNewTask from "./AddNewTask";
