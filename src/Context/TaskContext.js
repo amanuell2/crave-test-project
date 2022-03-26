@@ -93,7 +93,6 @@ const TaskContextProvider = (props) => {
   };
 
   const addSubTask = (id, subTask) => {
-    const nextTask = getNextTask(id);
     setTasks(
       tasks.map((task) => {
         if (task.id === id) {
@@ -103,11 +102,10 @@ const TaskContextProvider = (props) => {
       })
     );
     shouldUnlockTask(id);
-    shouldUnlockTask(nextTask.id);
+    updateTasksLockedStatus(id);
   };
 
   const toggleSubTask = async (id, subTaskId) => {
-    const nextTask = getNextTask(id);
     await setTasks(
       tasks.map((task) => {
         if (task.id === id) {
@@ -124,26 +122,11 @@ const TaskContextProvider = (props) => {
     );
 
     shouldUnlockTask(id);
-    shouldUnlockTask(nextTask.id);
+    updateTasksLockedStatus(id);
   };
 
   const findById = (id) => {
     return tasks.find((task) => task.id === id);
-  };
-
-  const getNextTask = (id) => {
-    const task = findById(id);
-    const index = tasks.indexOf(task);
-    return tasks[index + 1];
-  };
-
-  const shouldUnlockTask = async (id) => {
-    let task = await findById(id);
-    let canUnlockTaskNextTask = await isAllSubTaskAreCompleted(task.subTask);
-    if (canUnlockTaskNextTask && isPreviousTaskCompleted(task)) {
-      return toggleTask(id, false);
-    }
-    toggleTask(id, true);
   };
 
   const isAllSubTaskAreCompleted = (subTask) => {
@@ -162,6 +145,35 @@ const TaskContextProvider = (props) => {
     if (index === 0) return true;
     let perviousTask = tasks[index - 1];
     if (perviousTask) return !perviousTask.isLocked;
+  };
+
+  const shouldUnlockTask = async (id) => {
+    let task = await findById(id);
+    let canUnlockTaskNextTask = await isAllSubTaskAreCompleted(task.subTask);
+    if (canUnlockTaskNextTask && isPreviousTaskCompleted(task)) {
+      return toggleTask(id, false);
+    }
+    toggleTask(id, true);
+  };
+
+  const updateTasksLockedStatus = (id) => {
+    const nextTask = getNextTask(id);
+    if (nextTask) {
+      let index = tasks.indexOf(nextTask);
+      const nextTasks = tasks.slice(index, tasks.length);
+      nextTasks.forEach((task) => {
+        shouldUnlockTask(task.id);
+      });
+    }
+  };
+
+  const getNextTask = (id) => {
+    const task = findById(id);
+    const index = tasks.indexOf(task);
+    if (index + 1 < tasks.length) {
+      return tasks[index + 1];
+    }
+    return null;
   };
 
   return (
