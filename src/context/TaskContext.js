@@ -130,7 +130,7 @@ const TaskContextProvider = (props) => {
   const shouldLockOrUnlockTask = async (id) => {
     let task = await findById(id);
     let canUnlockTaskNextTask = await isAllSubTaskAreCompleted(task.subTask);
-    if (canUnlockTaskNextTask) {
+    if (canUnlockTaskNextTask && isPreviousTaskCompleted(task)) {
       return toggleTask(id, false);
     }
   };
@@ -145,7 +145,11 @@ const TaskContextProvider = (props) => {
     });
     return isCompleted;
   };
-
+  const isPreviousTaskCompleted = (task) => {
+    let index = tasks.indexOf(task);
+    let perviousTask = tasks[index - 1];
+    if (perviousTask) return !perviousTask.isLocked;
+  };
   return (
     <TaskContext.Provider
       value={{
