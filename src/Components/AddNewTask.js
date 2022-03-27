@@ -15,7 +15,7 @@ const AddNewTask = ({ onAddNewTaskClick }) => {
   return (
     <div className="w-full h-14">
       {addingNewTask && (
-        <div className="flex flex-row justify-between items-center border-blue-500 border-2 rounded-md my-1">
+        <div className="flex flex-row justify-between items-center border-blue-500 border-2 rounded-md my-1 transition-all ease-in delay-150 duration-300">
           <input
             type="text"
             className="w-full bg-white text-sm text-gray-500 m-1 px-2 flex-1 focus:outline-none"

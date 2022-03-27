@@ -30,6 +30,7 @@ const TaskListCard = ({ index, id, title, isLocked, subTask }) => {
       ))}
       <AddNewTask
         onAddNewTaskClick={(task) =>
+          task !== "" &&
           addSubTask(id, {
             id: idGenerator(),
             task,
