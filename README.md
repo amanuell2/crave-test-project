@@ -1,6 +1,18 @@
-# Getting Started with Create React App
+# Crave Tech Startup Progress Tracking app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Demo can be found here: [My Progress Tracker](https://zippy-druid-1f9a71.netlify.app/).
+
+## Run it locally
+
+clone the project from
+
+## Git Clone
+
+git clone https://github.com/amanuell2/crave-test-project.git
+
+## Install Package
+
+npm install
 
 ## Available Scripts
 
