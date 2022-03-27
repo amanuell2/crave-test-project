@@ -4,9 +4,7 @@ Demo can be found here: [My Progress Tracker](https://zippy-druid-1f9a71.netlify
 
 ## Run it locally
 
-clone the project from
-
-## Git Clone
+clone the project from and install the packages
 
 git clone https://github.com/amanuell2/crave-test-project.git
 
