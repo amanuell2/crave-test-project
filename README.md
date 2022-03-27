@@ -6,13 +6,9 @@ Demo can be found here: [My Progress Tracker](https://zippy-druid-1f9a71.netlify
 
 - Every phase can have an unlimited amount of tasks
 
-- If the startup accomplishes all tasks in the phase, it’s marked as done and unlocks the
+- If the startup accomplishes all tasks in the phase, it’s marked as done and unlocks the next phase.
 
-next phase.
-
-- Tasks cannot be marked as completed unless all tasks in the previous phase were
-
-completed.
+- Tasks cannot be marked as completed unless all tasks in the previous phase were completed.
 
 ##
 
