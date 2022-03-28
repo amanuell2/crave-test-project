@@ -1,4 +1,6 @@
+import { useLazyQuery } from "@apollo/client";
 import React, { createContext } from "react";
+import { EXCHANGE_RATES } from "../graphql";
 import { idGenerator } from "../Helper/helper";
 
 const initialState = [
@@ -68,7 +70,7 @@ const initialState = [
 export const TaskContext = createContext({
   tasks: [],
   addTask: (task) => {},
-  toggleTask: (id) => {},
+  toggleTask: (id, isLocked) => {},
   addSubTask: (id, subTask) => {},
   toggleSubTask: (id, subTaskId) => {},
   findById: (id) => {},
@@ -76,12 +78,16 @@ export const TaskContext = createContext({
 
 const TaskContextProvider = (props) => {
   const [tasks, setTasks] = React.useState(initialState);
+  const [getRates, { loading }] = useLazyQuery(EXCHANGE_RATES, {
+    notifyOnNetworkStatusChange: true,
+  });
+  const [rate, setRate] = React.useState([]);
 
   const addTask = (task) => {
     setTasks([...tasks, task]);
   };
 
-  const toggleTask = (id, isLocked) => {
+  const toggleTask = async (id, isLocked) => {
     setTasks(
       tasks.map((task) => {
         if (task.id === id) {
@@ -90,6 +96,11 @@ const TaskContextProvider = (props) => {
         return task;
       })
     );
+
+    if (isAllTasksAreCompleted()) {
+      const { data } = await getRates();
+      setRate(data.rates[Math.floor(Math.random() * data.rates.length)]);
+    }
   };
 
   const addSubTask = (id, subTask) => {
@@ -129,6 +140,12 @@ const TaskContextProvider = (props) => {
     return tasks.find((task) => task.id === id);
   };
 
+  const isAllTasksAreCompleted = () => {
+    return tasks.every((task) =>
+      task.subTask.every((subTask) => subTask.isCompleted)
+    );
+  };
+
   const isAllSubTaskAreCompleted = (subTask) => {
     let isCompleted = true;
     if (!subTask.length > 0) return false;
@@ -153,7 +170,7 @@ const TaskContextProvider = (props) => {
     if (canUnlockTaskNextTask && isPreviousTaskCompleted(task)) {
       return toggleTask(id, false);
     }
-    toggleTask(id, true);
+    return toggleTask(id, true);
   };
 
   const updateTasksLockedStatus = (id) => {
@@ -182,9 +199,12 @@ const TaskContextProvider = (props) => {
         tasks,
         addTask,
         toggleTask,
+        loading,
+        isAllTasksAreCompleted,
         addSubTask,
         toggleSubTask,
         findById,
+        rate,
       }}
     >
       {props.children}
