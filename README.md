@@ -9,6 +9,7 @@ Demo can be found here: [My Progress Tracker](https://zippy-druid-1f9a71.netlify
 - If the startup accomplishes all tasks in the phase, it’s marked as done and unlocks the next phase.
 
 - Tasks cannot be marked as completed unless all tasks in the previous phase were completed.
+- Display money reward the currency fetched using graphql client
 
 ##
 
