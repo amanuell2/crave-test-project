@@ -1,23 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import { stringify } from "postcss";
 import TaskListCard from "../TaskListCard";
 
 const tasks = {
   id: "1",
   title: "Foundation",
   isLocked: true,
-  subTask: [
-    {
-      id: "1-1",
-      task: "Sub Task 1",
-      isCompleted: false,
-    },
-    {
-      id: "1-2",
-      task: "Sub Task 2",
-      isCompleted: false,
-    },
-  ],
+  subTask: [],
 };
 
 it("should render card title", async () => {
