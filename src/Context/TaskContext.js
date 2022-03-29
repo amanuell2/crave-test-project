@@ -1,7 +1,11 @@
 import { useLazyQuery } from "@apollo/client";
-import React, { createContext } from "react";
+import React, { createContext, useEffect } from "react";
 import { EXCHANGE_RATES } from "../graphql";
-import { idGenerator } from "../Helper/helper";
+import {
+  getLocalStorageItem,
+  idGenerator,
+  setLocalStorageItem,
+} from "../Helper/helper";
 
 const initialState = [
   {
@@ -77,11 +81,27 @@ export const TaskContext = createContext({
 });
 
 const TaskContextProvider = (props) => {
-  const [tasks, setTasks] = React.useState(initialState);
+  const [tasks, setTasks] = React.useState([]);
   const [getRates, { loading }] = useLazyQuery(EXCHANGE_RATES, {
     notifyOnNetworkStatusChange: true,
   });
   const [rate, setRate] = React.useState([]);
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      const localTasks = await getTasks();
+      if (localTasks) {
+        return setTasks(localTasks);
+      }
+      await saveTasks(initialState);
+      setTasks(getTasks);
+    };
+    fetchTask();
+  }, []);
+
+  useEffect(() => {
+    saveTasks(tasks);
+  }, [tasks]);
 
   const addTask = (task) => {
     setTasks([...tasks, task]);
@@ -117,7 +137,7 @@ const TaskContextProvider = (props) => {
   };
 
   const toggleSubTask = async (id, subTaskId) => {
-    await setTasks(
+    setTasks(
       tasks.map((task) => {
         if (task.id === id) {
           task.subTask = task.subTask.map((subTask) => {
@@ -193,6 +213,14 @@ const TaskContextProvider = (props) => {
     return null;
   };
 
+  const saveTasks = (_tasks) => {
+    if (!_tasks) return;
+    return setLocalStorageItem("tasks", JSON.stringify(_tasks));
+  };
+  const getTasks = () => {
+    console.log("fetching data");
+    return JSON.parse(getLocalStorageItem("tasks"));
+  };
   return (
     <TaskContext.Provider
       value={{
