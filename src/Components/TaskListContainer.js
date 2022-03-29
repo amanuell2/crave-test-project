@@ -19,7 +19,7 @@ const TaskListContainer = () => {
           <TaskListCard key={task.id} {...{ ...task, index }} />
         ))}
         {loading && <div>Loading...</div>}
-        {!loading && rate.currency && isAllTasksAreCompleted() && (
+        {!loading && rate && rate.currency && isAllTasksAreCompleted() && (
           <div className="flex flex-col items-center justify-center">
             <h1 className="font-semibold text-lg">
               You have completed all tasks.

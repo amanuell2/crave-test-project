@@ -217,10 +217,12 @@ const TaskContextProvider = (props) => {
     if (!_tasks) return;
     return setLocalStorageItem("tasks", JSON.stringify(_tasks));
   };
+
   const getTasks = () => {
     console.log("fetching data");
     return JSON.parse(getLocalStorageItem("tasks"));
   };
+
   return (
     <TaskContext.Provider
       value={{
