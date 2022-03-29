@@ -19,7 +19,9 @@ const TaskListItem = ({ parentId, toggleSubTask, id, task, isCompleted }) => {
         checked={completed}
         onChange={handleClick}
       />
-      <span className="text-sm flex-1 mx-2">{task}</span>
+      <span title="task-item" className="text-sm flex-1 mx-2">
+        {task}
+      </span>
     </div>
   );
 };

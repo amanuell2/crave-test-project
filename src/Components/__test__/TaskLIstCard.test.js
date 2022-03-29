@@ -16,13 +16,13 @@ it("should render card title", async () => {
   expect(title).toBeInTheDocument();
 });
 
-it("should hide icon if task locked", async () => {
+it("should hide icon if task is locked", async () => {
   render(<TaskListCard {...{ ...tasks, ...{ index: 1 } }} />);
-  const icon = screen.queryByTitle("check-icon");
-  expect(icon).not.toBeInTheDocument();
+  const spanElement = screen.queryByTitle("check-icon");
+  expect(spanElement).not.toBeInTheDocument();
 });
 
-it("should show task number", async () => {
+it("should show task number based on the index of the task", async () => {
   render(<TaskListCard {...{ ...tasks, ...{ index: 0 } }} />);
   const number = screen.getByTitle("task-number").textContent;
   expect(number).toEqual("1");
