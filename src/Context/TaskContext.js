@@ -219,7 +219,6 @@ const TaskContextProvider = (props) => {
   };
 
   const getTasks = () => {
-    console.log("fetching data");
     return JSON.parse(getLocalStorageItem("tasks"));
   };
 

@@ -3,9 +3,7 @@ import TaskListItem from "../TaskListItem";
 
 const task = {
   parentId: "p-1",
-  toggleSubTask: () => {
-    console.log("toggleSubTask");
-  },
+  toggleSubTask: () => {},
   id: 1,
   task: "to do item",
   isCompleted: true,

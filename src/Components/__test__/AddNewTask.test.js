@@ -1,9 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import AddNewTask from "../AddNewTask";
 
-const onAddNewTaskClick = (task) => {
-  console.log(task);
-};
+const onAddNewTaskClick = (task) => {};
 const addingNewTask = true;
 
 it("should  render input element if we are adding new task", async () => {
