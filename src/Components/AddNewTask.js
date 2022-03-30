@@ -41,6 +41,7 @@ const AddNewTask = ({ onAddNewTaskClick }) => {
         </div>
       )}
       <button
+        title="add-new-task"
         className="w-full h-8 text-sm bg-gray-100 rounded-sm border-dotted border-2 border-gray-300 hover:bg-gray-300"
         onClick={toggleAddingNewTask}
       >
