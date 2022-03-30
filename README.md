@@ -11,7 +11,13 @@ Demo can be found here: [My Progress Tracker](https://zippy-druid-1f9a71.netlify
 - Tasks cannot be marked as completed unless all tasks in the previous phase were completed.
 - Display money reward the currency fetched using graphql apollo client
 
-##
+## Tech stack
+
+- react with Javascript for the project
+- used tailwind css for styling
+- used react testing library to write some unit test for components
+- used context api to manage state
+- graphql apollo client to make api request
 
 ## Run it locally
 
